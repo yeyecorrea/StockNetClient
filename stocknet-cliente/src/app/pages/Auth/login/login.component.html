@@ -1,0 +1,66 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <h2 class="title">Iniciar Sesión</h2>
+
+    <form [formGroup]="formLogin" (ngSubmit)="login()">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Correo Electrónico</mat-label>
+        <input
+          matInput
+          placeholder="ejemplo@correo.com"
+          formControlName="email"
+          type="email"
+        />
+        <mat-error *ngIf="formLogin.get('email')?.hasError('required')"
+          >El correo es obligatorio</mat-error
+        >
+        <mat-error *ngIf="formLogin.get('email')?.hasError('email')"
+          >Correo inválido</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          placeholder="********"
+          formControlName="passWord"
+          type="password"
+        />
+        <mat-error *ngIf="formLogin.get('passWord')?.hasError('required')"
+          >La contraseña es obligatoria</mat-error
+        >
+        <mat-error *ngIf="formLogin.get('passWord')?.hasError('minlength')"
+          >Mínimo 6 caracteres</mat-error
+        >
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="login-button"
+        [disabled]="formLogin.invalid"
+      >
+        Ingresar
+      </button>
+
+      <div
+        *ngIf="errorMessage"
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+      >
+        {{ errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1) }}
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="errorMessage = ''"
+        ></button>
+      </div>
+    </form>
+    <div class="register-link">
+      <span>¿No tienes cuenta? </span>
+      <a (click)="register()">Regístrate aquí</a>
+    </div>
+  </mat-card>
+</div>

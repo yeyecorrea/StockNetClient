@@ -1,0 +1,101 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <h2 class="title">Iniciar Sesión</h2>
+
+    <form [formGroup]="formRegister" (ngSubmit)="Register()">
+      <!-- Nombre de Usuario -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nombre de Usuario</mat-label>
+        <input
+          matInput
+          placeholder="usuario123"
+          formControlName="userName"
+          type="text"
+        />
+        <mat-error *ngIf="formRegister.get('userName')?.hasError('required')"
+          >El nombre del usuario es obligatorio</mat-error
+        >
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Correo Electrónico</mat-label>
+        <input
+          matInput
+          placeholder="ejemplo@correo.com"
+          formControlName="email"
+          type="email"
+        />
+        <mat-error *ngIf="formRegister.get('email')?.hasError('required')"
+          >El correo es obligatorio</mat-error
+        >
+        <mat-error *ngIf="formRegister.get('email')?.hasError('email')"
+          >Correo inválido</mat-error
+        >
+      </mat-form-field>
+
+      <!-- Contraseña -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          placeholder="********"
+          formControlName="passWord"
+          type="password"
+        />
+        <mat-error *ngIf="formRegister.get('passWord')?.hasError('required')"
+          >La contraseña es obligatoria</mat-error
+        >
+        <mat-error *ngIf="formRegister.get('passWord')?.hasError('minlength')"
+          >Mínimo 6 caracteres</mat-error
+        >
+      </mat-form-field>
+
+      <!-- Confirmar Contraseña -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          placeholder="********"
+          formControlName="confirmPassWord"
+          type="password"
+        />
+        <mat-error
+          *ngIf="formRegister.get('confirmPassWord')?.hasError('required')"
+          >La contraseña es obligatoria</mat-error
+        >
+        <mat-error
+          *ngIf="formRegister.get('confirmPassWord')?.hasError('minlength')"
+          >Mínimo 6 caracteres</mat-error
+        >
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="login-button"
+        [disabled]="formRegister.invalid"
+      >
+        Ingresar
+      </button>
+
+      <div
+        *ngIf="errorMessage"
+        class="alert alert-danger alert-dismissible fade show"
+        role="alert"
+      >
+        {{ errorMessage }}
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="errorMessage = ''"
+        ></button>
+      </div>
+    </form>
+    <div class="register-link">
+      <span>¿Ya tienes cuenta? </span>
+      <a (click)="login()">Inicia sesion aquí</a>
+    </div>
+  </mat-card>
+</div>
