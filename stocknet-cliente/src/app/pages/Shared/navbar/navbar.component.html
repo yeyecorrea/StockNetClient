@@ -1,0 +1,41 @@
+<mat-toolbar color="primary" class="navbar">
+  <span class="logo">StockNet</span>
+
+  <button mat-button routerLink="/">Inicio</button>
+  <button mat-button routerLink="/acerca">Acerca</button>
+  <button mat-button routerLink="/contacto">Contacto</button>
+
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="usuario; else noAutenticado">
+    <button mat-button [matMenuTriggerFor]="menuUsuario" class="user-button">
+      <span class="user-info">
+        <img [src]="usuario.FotoPerfilUrl" class="avatar" alt="Avatar" />
+        <span>{{ usuario.UserName }}</span>
+      </span>
+    </button>
+
+    <mat-menu #menuUsuario="matMenu">
+      <button mat-menu-item routerLink="/profile">
+        <mat-icon>edit</mat-icon>
+        <span>Editar Perfil</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="cerrarSesion()">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar sesión</span>
+      </button>
+    </mat-menu>
+  </ng-container>
+
+  <ng-template #noAutenticado>
+    <button mat-stroked-button color="primary" routerLink="/login">
+      Iniciar sesión
+    </button>
+    <button mat-stroked-button color="accent" routerLink="/register">
+      Registrarse
+    </button>
+  </ng-template>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

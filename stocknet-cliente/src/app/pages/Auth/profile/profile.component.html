@@ -1,0 +1,63 @@
+<div class="profile-wrapper">
+
+  <div class="profile-header mat-elevation-z2">
+    <img [src]="profileForm.value.fotoPerfilUrl || defaultPhoto"
+         class="avatar"
+         alt="Foto de perfil"
+         (error)="handlePhotoError($event)">
+
+    <div class="info">
+      <h2>{{ profileForm.value.userName }}</h2>
+      <p>{{profileForm.value.email}}</p>
+      <button mat-stroked-button color="primary">
+        <mat-icon>lock</mat-icon>
+        Cambiar contraseña
+      </button>
+    </div>
+  </div>
+
+  <form [formGroup]="profileForm" class="form-grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre de usuario</mat-label>
+      <input matInput formControlName="userName" [readonly]="!isEditing()" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre completo</mat-label>
+      <input matInput formControlName="nombreCompleto" [readonly]="!isEditing()" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Correo</mat-label>
+      <input matInput formControlName="email" [readonly]="!isEditing()" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de nacimiento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento" [readonly]="!isEditing()" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="numeroTelefono" [readonly]="!isEditing()" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>URL de la foto</mat-label>
+      <input matInput formControlName="fotoPerfilUrl" [readonly]="!isEditing()" />
+    </mat-form-field>
+
+    <div class="actions">
+      <button *ngIf="isEditing()" mat-flat-button color="primary" (click)="saveProfile()" [disabled]="profileForm.invalid || isLoading()">Guardar</button>
+      <button mat-stroked-button color="warn" (click)="toggleEdit()">Editar</button>
+      <button *ngIf="isEditing()" mat-stroked-button color="warn" (click)="toggleEdit()">Cancelar</button>
+    </div>
+
+  </form>
+
+  
+
+</div>
